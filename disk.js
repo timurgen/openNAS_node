@@ -5,7 +5,7 @@ var logger = log4js.getLogger();
 
 exports.diskinfo = function (callback) {
 	var disklist = new Array();
-	exec('disklayout -H -p', function (error, stdout, stderr) {
+	exec('diskinfo -H -p', function (error, stdout, stderr) {
 		if (error != null) {
 			logger.error(error.message);
 		}
