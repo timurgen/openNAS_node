@@ -4,6 +4,7 @@ var logger = log4js.getLogger();
 if (!fs.existsSync) {
 	fs.existsSync = path.existsSync;
 }
+logger.setLevel('TRACE');
 /**
  *
  */
@@ -28,7 +29,9 @@ exports.poolList = function (callback) {
 					health: line[7]//String status
 				};
 				poolList[i] = pool;
+				logger.trace(pool);
 			}
+			callback(poolList);
 		}
 	});
 };

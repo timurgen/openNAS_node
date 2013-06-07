@@ -1,7 +1,7 @@
 var exec = require('child_process').exec;
 var log4js = require('log4js');
 var logger = log4js.getLogger();
-logger.setLevel('TRACE');
+logger.setLevel('INFO');
 
 /**
  * <p>Obtains information about connected disks
@@ -16,9 +16,12 @@ exports.diskinfo = function (callback) {
 			}
 			else {
 				var resultString = stdout.toString();
-				var resultArray = resultString.split(/(\r?\n)/g);
+				var resultArray = resultString.split(/\r\n|\r|\n/g);
 				for (var i = 0; i < resultArray.length; i++) {
 					var line = resultArray[i].split('\t');
+					if(line[0] === ''){ //FIXME last line contains only " " donno why
+						break;
+					}
 					var disk = {
 						type: line[0],
 						name: line[1],
