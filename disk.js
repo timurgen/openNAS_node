@@ -1,6 +1,7 @@
 var exec = require('child_process').exec;
 var log4js = require('log4js');
 var logger = log4js.getLogger();
+logger.setLevel('TRACE');
 
 /**
  * <p>Obtains information about connected disks

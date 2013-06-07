@@ -58,5 +58,5 @@ http.createServer(app).listen(app.get('port'), function () {
 //test
 var disk = require('./disk.js');
 disk.diskinfo(function (stdout) {
-
+	logger.info(stdout);
 });
