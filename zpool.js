@@ -2,7 +2,7 @@ var exec = require('child_process').exec;
 var log4js = require('log4js');
 var logger = log4js.getLogger();
 
-logger.setLevel('TRACE');
+logger.setLevel('INFO');
 /**
  *
  */

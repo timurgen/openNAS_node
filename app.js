@@ -55,9 +55,3 @@ http.createServer(app).listen(app.get('port'), function () {
 	mdns.multicastEnable();
 	mdns.multicastStartService(system.isConfigured()?'openNAS':'openNAS_unconfigured', '_http._tcp', 'local', app.get('port'));
 });
-
-//test
-var zpool = require('./zpool.js');
-zpool.poolList(function(poollist){
-
-});
