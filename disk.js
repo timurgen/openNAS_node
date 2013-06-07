@@ -1,10 +1,13 @@
 var exec = require('child_process').exec;
-
 var log4js = require('log4js');
 var logger = log4js.getLogger();
 
-
+/**
+ * <p>Obtains information about connected disks
+ * @param callback
+ */
 exports.diskinfo = function (callback) {
+	"use strict";
 	var disklist = new Array();
 	exec('diskinfo -H -p', function (error, stdout, stderr) {
 			if (error != null) {
@@ -16,22 +19,19 @@ exports.diskinfo = function (callback) {
 				for (var i = 0; i < resultArray.length; i++) {
 					var line = resultArray[i].split('\t');
 					var disk = {
-							type: line[0],
-							name: line[1],
-							vid: line[2],
-							pid: line[3],
-							size: line[4],
-							remv: line[5],
-							ssd: line[6]
-						}
-						;
-
+						type: line[0],
+						name: line[1],
+						vid: line[2],
+						pid: line[3],
+						size: line[4],
+						remv: line[5],
+						ssd: line[6]
+					};
 					disklist[i] = disk;
+					logger.trace(disk);
 				}
 				callback(disklist);
 			}
 		}
-	)
-	;
-}
-;
+	);
+}; //end of diskinfo

@@ -37,7 +37,7 @@ exports.multicastDisable = function () {
  * @param text
  */
 exports.multicastStartService = function (serviceName, serviceType, domain, port, text) {
-	exec('dns-sd -R ' + serviceName + ' ' + serviceType + ' ' + domain + ' ' + port, function (error, stdout, stderr) {
+	child = exec('dns-sd -R ' + serviceName + ' ' + serviceType + ' ' + domain + ' ' + port, function (error, stdout, stderr) {
 		if (error != null) {
 			logger.error(error.message);
 		}

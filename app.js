@@ -6,8 +6,16 @@ var express = require('express')
 	, routes = require('./routes')
 	, http = require('http')
 	, path = require('path')
-	, mdns = require('./mdns.js')
-	, logger = require('log4js').getLogger();
+	, mdns = require('./mdns.js');
+
+
+var log4js = require('log4js');
+log4js.configure({
+	appenders: [
+		{ type: 'console' }
+	]
+});
+var logger = log4js.getLogger();
 
 var app = express();
 
@@ -39,14 +47,16 @@ app.post('/auth', routes.auth);
 //end of routs
 
 //start server
+logger.info('starting openNAS server');
 http.createServer(app).listen(app.get('port'), function () {
 	logger.info('openNAS server started on port ' + app.get('port'));
-});
 //start mdns
-mdns.multicastEnable();
-mdns.multicastStartService('openNAS', '_http._tcp', 'local', app.get('port'));
+	mdns.multicastEnable();
+	mdns.multicastStartService('openNAS', '_http._tcp', 'local', app.get('port'));
+});
+
 //test
 var disk = require('./disk.js');
-disk.diskinfo(function(stdout){
+disk.diskinfo(function (stdout) {
 
 });
