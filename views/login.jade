@@ -1,0 +1,21 @@
+//
+   Created with JetBrains WebStorm.
+   User: abnormal
+   Date: 05.06.13
+   Time: 18:09
+
+extends layout
+
+block content
+    div.container.span4.offset4
+        fieldset
+            form(name='login',action='auth',method='post').form-signin
+                h2.form-signin-heading Sign in
+                key Username
+                    input(type="text", name="user[name]").input-block-level
+
+                key Password
+                    input(type="password", name="user[passwd]").input-block-level
+
+                input(type="submit", value="Submit").btn.btn-primary
+

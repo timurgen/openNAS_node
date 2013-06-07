@@ -1,0 +1,12 @@
+{
+  "name": "openNAS",
+  "version": "0.0.1.DEV",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.2.6",
+    "jade": "*"
+  }
+}
