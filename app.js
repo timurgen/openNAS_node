@@ -6,7 +6,8 @@ var express = require('express')
 	, routes = require('./routes')
 	, http = require('http')
 	, path = require('path')
-	, mdns = require('./mdns.js');
+	, mdns = require('./mdns.js')
+	, logger = require('log4js').getLogger();
 
 var app = express();
 
@@ -39,7 +40,11 @@ app.post('/auth', routes.auth);
 
 //start server
 http.createServer(app).listen(app.get('port'), function () {
-	console.log('Express server listening on port ' + app.get('port'));
+	logger.info('openNAS server started on port ' + app.get('port'));
 });
 //start mdns
 mdns.multicastEnable();
+mdns.multicastStartService('openNAS', '_http._tcp', 'local', app.get('port'));
+//test
+var disk = require('./disk.js');
+disk.diskinfo();

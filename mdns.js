@@ -10,6 +10,9 @@ exports.multicastEnable = function () {
 		if (error != null) {
 			logger.error(error.message);
 		}
+		else {
+			logger.info('multicast enabled');
+		}
 	});
 };
 /**
@@ -19,6 +22,9 @@ exports.multicastDisable = function () {
 	exec('svcadm disable multicast', function (error, stdout, stderr) {
 		if (error != null) {
 			logger.error(error.message);
+		}
+		else {
+			logger.info('multicast disabled');
 		}
 	});
 };
@@ -36,6 +42,7 @@ exports.multicastStartService = function (serviceName, serviceType, domain, port
 			logger.error(error.message);
 		}
 		else {
+			logger.info('service openNAS started');
 			logger.info('stdout:'+ stdout);
 		}
 	});
