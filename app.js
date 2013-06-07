@@ -16,6 +16,7 @@ log4js.configure({
 	]
 });
 var logger = log4js.getLogger();
+var system = require('./system.js');
 
 var app = express();
 
@@ -52,7 +53,7 @@ http.createServer(app).listen(app.get('port'), function () {
 	logger.info('openNAS server started on port ' + app.get('port'));
 //start mdns
 	mdns.multicastEnable();
-	mdns.multicastStartService('openNAS', '_http._tcp', 'local', app.get('port'));
+	mdns.multicastStartService(system.isConfigured()?'openNAS':'openNAS_unconfigured', '_http._tcp', 'local', app.get('port'));
 });
 
 //test

@@ -6,7 +6,6 @@ exports.index = function (req, res) {
 	if (req.session.isLogged) {
 		res.render('index', { title: pjson.name + " v." + pjson.version });
 		mdns = require('../mdns.js');
-		mdns.multicastStartService('openNAS','_http._tcp', 'local',3000, null);
 	}
 	else {
 		res.redirect('/login');

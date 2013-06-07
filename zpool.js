@@ -1,9 +1,7 @@
-var exec = require('child_process').exec();
+var exec = require('child_process').exec;
 var log4js = require('log4js');
 var logger = log4js.getLogger();
-if (!fs.existsSync) {
-	fs.existsSync = path.existsSync;
-}
+
 logger.setLevel('TRACE');
 /**
  *
@@ -16,10 +14,13 @@ exports.poolList = function (callback) {
 			logger.log(error.message);
 		} else {
 			var resultString = stdout.toString();
-			var resultArray = resultString.split(/(\r?\n)/g);
+			var resultArray = resultString.split(/\r\n|\r|\n/g);
 			poolList = [];
 			for (var i = 0; i < resultArray.length; i++) {
 				var line = resultArray[i].split('\t');
+				if(line[0] === '') {//FIXME last line contains only " " donno why
+					break;
+				}
 				var pool = {
 					name: line[0],//string name
 					size: line[1],//total size bytes
