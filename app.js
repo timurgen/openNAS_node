@@ -47,4 +47,6 @@ mdns.multicastEnable();
 mdns.multicastStartService('openNAS', '_http._tcp', 'local', app.get('port'));
 //test
 var disk = require('./disk.js');
-disk.diskinfo();
+disk.diskinfo(function(stdout){
+	logger.info('stdout: '+stdout);
+});
