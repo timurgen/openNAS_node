@@ -5,15 +5,17 @@ var fs = require('fs');
 /**
  *
  */
-exports.isConfigured = function () {
+exports.isConfigured = function (callback) {
 	zpool.poolList(function (poollist) {
 		for (var i = 0; i < poollist.length; i++) {
 			if (fs.existsSync('/' + poollist[i].name + '/.sytem_pool')) {
-				return true;
+				callback(true);
+				return;
 			}
 		}
-		return false;
+		callback(false);
 	});
+
 };
 
 exports.isSupported = function () {

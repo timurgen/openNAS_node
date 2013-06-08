@@ -18,7 +18,7 @@ exports.poolList = function (callback) {
 			poolList = [];
 			for (var i = 0; i < resultArray.length; i++) {
 				var line = resultArray[i].split('\t');
-				if(line[0] === '') {//FIXME last line contains only " " donno why
+				if (line[0] === '') {//FIXME last line contains only " " donno why
 					break;
 				}
 				var pool = {
@@ -36,6 +36,8 @@ exports.poolList = function (callback) {
 		}
 	});
 };
+
+
 /**
  *
  * @param name

@@ -53,5 +53,8 @@ http.createServer(app).listen(app.get('port'), function () {
 	logger.info('openNAS server started on port ' + app.get('port'));
 //start mdns
 	mdns.multicastEnable();
-	mdns.multicastStartService(system.isConfigured()?'openNAS':'openNAS_unconfigured', '_http._tcp', 'local', app.get('port'));
+
+	system.isConfigured(function (isConfigured) {
+		mdns.multicastStartService(isConfigured ? 'openNAS' : 'openNAS_unconfigured', '_http._tcp', 'local', app.get('port'));
+	});
 });
