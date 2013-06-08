@@ -6,10 +6,10 @@ exports.index = function (req, res) {
 		title: pjson.name + " v." + pjson.version,
 		appversion: pjson.version
 	});
-}
+};
 
 exports.getdisks = function (req, res) {
 	disk.diskinfo(function (disklist) {
 		res.send(disklist);
 	});
-}
+};
