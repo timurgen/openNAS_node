@@ -5,3 +5,4 @@ manifest:
 
 update:
         git pull --rebase
+install:
