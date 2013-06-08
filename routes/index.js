@@ -1,3 +1,5 @@
+var system = require('../system.js');
+
 /*
  * GET home page.
  */
