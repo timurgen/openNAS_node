@@ -1,3 +1,7 @@
+var choosdHDDs = []; //HDD choose for RAID creating
+var choosedSSDs = []; //SSD choose for RAID creating
+var admin = {};    //name and pass here
+
 $(document).ready(function () {
 	$('#idBtnStartInstall').click(function () {
 		$('<div/>', {
@@ -34,11 +38,19 @@ $(document).ready(function () {
 					);
 				}
 			});
+			$('<div/>', {
+				'id': 'tablerow',
+				'class': 'row span6 offset3'
+			}).appendTo('body');
 			$('<table/>', {
-				'class': 'table table-bordered table-condensed span6',
+				'class': 'table table-stripped table-condensed table-hover span6',
+				'id': 'idTableHDD',
 				html: hdds.join(''),
 				style: 'cursor:pointer;'
-			}).appendTo('body');
+			}).appendTo('#tablerow');
+			$('<thead/>', {
+				'html': '<th></th><th>name</th><th>product id</th><th>size</th><th>type</th><th>vendor</th>'
+			}).appendTo('table');
 			$('#idInfoBlock').html('<h4>Choose disks for your storage</h4>');
 			$('<tfooter/>').appendTo('table');
 			$('<button/>', {
@@ -47,10 +59,58 @@ $(document).ready(function () {
 				'html': 'create storage',
 				'style': 'padding:15px;margin:15px'
 			}).appendTo('tfooter');
-			$('#idBtnStage2').click(function () {
-				alert('hui');
-				//TODO Finne alle valgte disker (ider til rader i tabell)
-			});
+			$('#idBtnStage2').click(function () {//click on create storage button
+				$('table tr').filter(':has(:checkbox:checked)').each(function () {
+					// this = tr
+					$tr = $(this);
+					//get row values
+					choosdHDDs.push(this.id);
+				});
+				//TODO create storage
+				$.ajax({
+					type: 'POST',
+					dataType: 'json',
+					url: '/createstorage',
+					data: {hdds: choosdHDDs},
+					success: function (data, status, jqXHR) {
+						console.log(data);
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						console.log(errorThrown);
+					}
+				});
+
+				//show form for admin name and pass
+				$('table').remove();
+				$('#idInfoBlock').empty();
+				$('#warning').remove();
+				$('#idInfoBlock').html('<h4>Register administrator</h4>');
+				$.get('/getregistrationform', function (form) {
+					$(form).appendTo('body');
+					$('#idBtnSaveAdmin').click(function () {
+						name = $('input[name=name]').val();
+						pass1 = $('input[name=pass]').val();
+						pass2 = $('input[name=pass2]').val();
+						if (pass1 !== pass2) {
+							$('<div/>', {
+								'class': 'alert alert-block alert-warning span6 offset3',
+								'id': 'warning',
+								'style': 'margin:5px'
+							}).appendTo('body');
+							$('#warning').html('<h4>passwords don\'t match</h4>');
+						}
+						else if (pass1.length < 6) {
+							$('<div/>', {
+								'class': 'alert alert-block alert-warning span6 offset3',
+								'id': 'warning',
+								'style': 'margin:5px'
+							}).appendTo('body');
+							$('#warning').html('<h4>passwords don\'t match</h4>');
+						}
+					});
+				});
+
+			});//end of "click on storage button" event
 		});
 	});
 });
