@@ -56,6 +56,12 @@ exports.poolDestroy = function (poolName, forseDestroy) {
  *
  * @param poolName
  */
-exports.poolStatus = function (poolName) {
+exports.poolStatus = function (poolName, callback) {
+	"use strict";
+
+};
+
+exports.poolInfo = function (poolName, callback) {
+	"use strict"
 };
 

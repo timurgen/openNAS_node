@@ -44,7 +44,7 @@ if ('development' == app.get('env')) {
 mdns.multicastEnable();
 setTimeout(system.isConfigured(function (isConfigured) {
 	mdns.multicastStartService(isConfigured ? 'openNAS' : 'openNAS_unconfigured', '_http._tcp', 'local', app.get('port'), null);
-	if (!isConfigured) {//this routs for app configuration
+	if (isConfigured) {//this routs for app configuration
 		logger.info('System seems to be unconfigured, changing route of index page');
 		app.get('/', routeConfig.index);
 		app.get('/getdisks', routeConfig.getdisks);
@@ -56,6 +56,7 @@ setTimeout(system.isConfigured(function (isConfigured) {
 		app.get('/logoff', routes.logoff);
 		app.post('/auth', routes.auth);
 		app.get('/getsysinfo', routes.getSysinfo);
+		app.get('/getpoolinfo', routes.getPoolInfo);
 //end of routs
 	}
 	//start server

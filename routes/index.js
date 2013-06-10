@@ -2,6 +2,8 @@ var system = require('../system.js');
 var os = require('os');
 var pjson = require('../package.json');
 var moment = require('moment');
+var zpool = require('../zpool.js');
+
 
 /*
  * GET home page.
@@ -16,9 +18,10 @@ exports.index = function (req, res) {
 			platform: os.platform(),
 			cpuarch: os.arch(),
 			release: os.release(),
-			uptime: moment.format(os.uptime()),
-			ram: Math.round((os.totalmem() / 1024.0 / 1024.0 / 1024.0)*100)/100 + ' GB'
+			uptime: moment.duration(os.uptime * 1000).hours() + 'fixme ',  //FIXME
+			ram: Math.round((os.totalmem() / 1024.0 / 1024.0 / 1024.0) * 100) / 100 + ' GB'
 		});
+		console.log('uptime sec: ' + os.uptime());
 	}
 	else {
 		res.redirect('/login');
@@ -69,4 +72,14 @@ exports.getSysinfo = function (req, res) {
 		uptime: os.uptime,
 		ram: os.totalmem / 1024.0 / 1024.0 / 1024.0 + 'GB'
 	});
+}
+
+/**
+ *
+ * @param req
+ * @param res
+ */
+exports.getPoolInfo = function (req, res) {
+	zpool.poolStatus('zones');
+	res.render('poolinfo');
 }

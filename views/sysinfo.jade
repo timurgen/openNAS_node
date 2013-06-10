@@ -1,27 +1,30 @@
 //
     shows system information
-.row.span4.offset3
-    table.table.table-bordered.table-hover.table-condensed
-        thead
-        tbody
-            tr
-                td hostname
-                td= hostname
-            tr
-                td operating system
-                td= type
-            tr
-                td platform
-                td= platform
-            tr
-                td cpu
-                td= cpuarch
-            tr
-                td release
-                td= release
-            tr
-                td uptime
-                td= uptime
-            tr
-                td RAM
-                td= ram
+
+table.table.table-bordered.table-hover.table-condensed
+    thead
+    tbody
+        tr
+            td(colspan=2)
+                h5 Sysinfo
+        tr
+            td hostname
+            td= hostname
+        tr
+            td operating system
+            td= type
+        tr
+            td platform
+            td= platform
+        tr
+            td cpu
+            td= cpuarch
+        tr
+            td release
+            td= release
+        tr
+            td uptime
+            td= uptime
+        tr
+            td RAM
+            td= ram

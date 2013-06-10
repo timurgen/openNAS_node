@@ -66,19 +66,19 @@ $(document).ready(function () {
 					//get row values
 					choosdHDDs.push(this.id);
 				});
-				//TODO create storage
-				$.ajax({
-					type: 'POST',
-					dataType: 'json',
-					url: '/createstorage',
-					data: {hdds: choosdHDDs},
-					success: function (data, status, jqXHR) {
-						console.log(data);
-					},
-					error: function (jqXHR, textStatus, errorThrown) {
-						console.log(errorThrown);
-					}
-				});
+//				//TODO create storage
+//				$.ajax({
+//					type: 'POST',
+//					dataType: 'json',
+//					url: '/createstorage',
+//					data: {hdds: choosdHDDs},
+//					success: function (data, status, jqXHR) {
+//						console.log(data);
+//					},
+//					error: function (jqXHR, textStatus, errorThrown) {
+//						console.log(errorThrown);
+//					}
+//				});
 
 				//show form for admin name and pass
 				$('table').remove();
@@ -105,7 +105,26 @@ $(document).ready(function () {
 								'id': 'warning',
 								'style': 'margin:5px'
 							}).appendTo('body');
-							$('#warning').html('<h4>passwords don\'t match</h4>');
+							$('#warning').html('<h4>passwords lngth must be 6 or more</h4>');
+						}
+						else {
+							$.ajax({
+								type: 'POST',
+								dataType: 'json',
+								url: '/createstorage',
+								data: {
+									hdds: choosdHDDs,
+									aminName: name,
+									password: pass1
+								},
+								success: function (data, status, jqXHR) {
+									console.log(data);
+								},
+								error: function (jqXHR, textStatus, errorThrown) {
+									console.log(errorThrown);
+								}
+							});
+
 						}
 					});
 				});

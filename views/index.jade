@@ -1,5 +1,10 @@
 extends layout
 
 block content
+    script(type='text/javascript', src='/javascripts/opennas.js')
     include menu
-    include sysinfo
+    .row
+        .span3.offset3
+            include sysinfo
+        .span3
+            include poolinfo
