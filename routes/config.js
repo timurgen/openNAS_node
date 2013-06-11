@@ -37,7 +37,7 @@ exports.createStorage = function (req, res) {
 	}
 	var arg1 = "\"";
 	for(var i = 0; i < hdds.length; i++) {
-		arg1 += hds[i] + " ";
+		arg1 += hdds[i] + " ";
 	}
 	arg1 += "\"";
 	adminName = req.body.adminName;
