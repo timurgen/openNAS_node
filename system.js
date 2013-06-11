@@ -7,11 +7,17 @@ var fs = require('fs');
  */
 exports.isConfigured = function (callback) {
 	zpool.poolList(function (poollist) {
-		var exist = false;
-		for (var i = 0; i < poollist.length; i++) {
-			exist = exist | fs.existsSync('/' + poollist[i].name + '/.system_pool');
+		if (poollist == null) {
+			callback(false);
 		}
-		callback(exist);
+		else {
+			var exist = false;
+			for (var i = 0; i < poollist.length; i++) {
+				exist = exist | fs.existsSync('/' + poollist[i].name + '/.system_pool');
+			}
+			callback(exist);
+		}
+
 	});
 };
 

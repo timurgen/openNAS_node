@@ -12,6 +12,7 @@ exports.poolList = function (callback) {
 		var poolList;
 		if (error != null) {
 			logger.log(error.message);
+			callback(null);
 		} else {
 			var resultString = stdout.toString();
 			var resultArray = resultString.split(/\r\n|\r|\n/g);
