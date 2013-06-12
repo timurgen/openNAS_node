@@ -265,11 +265,11 @@ promptpw()
 #	done
 }
 
-promptpool()
-{
+#promptpool()
+#{
 #  disks=$(disklist -n)
 # use "" double quoting to send many disks as one argument
-   disks=$1
+#   disks=$1
 #  while [[ /usr/bin/true ]]; do
 #    echo "Please select disks for the storage pool, space separated"
 #    echo ""
@@ -282,7 +282,7 @@ promptpool()
 #      echo ""
 #      continue
 #    fi
-    val=$disks
+#    val=$disks
 #    for disk in $(echo $val | tr " " "\n"); do
 #      if [[ -z $disk ]]; then continue; fi;
 #      echo $disks | grep $disk 1>&2 > /dev/null
@@ -293,12 +293,12 @@ promptpool()
 #    if [[ $bad != "" ]]; then
 #      printf "The disks %s are not valid choices" $bad
 #    else
-      DISK_LIST="$val"
+#      DISK_LIST="$val"
 #      break
 #    fi
 # done
 
-}
+#}
 
 create_dump()
 {
@@ -585,12 +585,12 @@ stty erase ^H
 #  fi
 #	printheader "Storage"
 #	promptpool
-
+#
 #	printheader "Account Information"
-
+#
 #	promptpw "Enter root password" "nolen"
 	root_shadow="$2"
-
+#
 #	printheader "Verify Configuration"
 #	message=""
 #
