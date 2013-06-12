@@ -523,7 +523,7 @@ fi
 
 #ifconfig -a plumb
 updatenicstates
-DISK_LIST=$1
+DISK_LIST="$1"
 export TERM=sun-color
 export TERM=xterm-color
 stty erase ^H
