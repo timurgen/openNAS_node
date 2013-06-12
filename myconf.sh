@@ -681,5 +681,6 @@ sed -e "s|^root:[^\:]*:|root:${root_shadow}:|" /etc/shadow > /usbkey/shadow \
 
 cp -rp /etc/ssh /usbkey/ssh
 
-reboot
+#first send out to client, reboot after that
+#reboot
 
