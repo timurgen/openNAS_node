@@ -6,7 +6,7 @@ var express = require('express')
 	, routes = require('./routes')
 	, http = require('http')
 	, path = require('path')
-	, mdns = require('./mdns.js');
+	, mdns = require('mdns');
 
 
 var log4js = require('log4js');
@@ -40,10 +40,19 @@ if ('development' == app.get('env')) {
 }
 
 
-//start mdns
-mdns.multicastEnable();
+
 setTimeout(system.isConfigured(function (isConfigured) {
-	mdns.multicastStartService(isConfigured ? 'openNAS' : 'openNAS_unconfigured', '_http._tcp', 'local', app.get('port'), null);
+	var serviceName = isConfigured ? 'openNAS' : 'openNAS_unconfigured';
+	var service = ad = mdns.createAdvertisement(mdns.tcp('http'), 3000, {name: serviceName}, function (error, service) {
+		if (error == null) {
+			logger.info('service: ' + serviceName + ' created');
+		}
+		else {
+			logger.error(error.toString());
+		}
+
+	});
+	service.start();
 	if (!isConfigured) {//this routs for app configuration
 		logger.info('System seems to be unconfigured, changing route of index page');
 		app.get('/', routeConfig.index);
