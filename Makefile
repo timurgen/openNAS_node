@@ -1,11 +1,11 @@
-PROTO_AREA =	$(PWD)/../../../proto
 
+.PHONY: manifest
 manifest:
 		cp manifest $(DESTDIR)/$(DESTNAME)
 update:
-		git pull --rebase
+		git pull 
 install:
 		mkdir $(DESTDIR)/openNAS
-		rsync -rupE ./* $(DESTDIR)/openNAS
+		rsync -rupE --exclude .git ./* $(DESTDIR)/openNAS
 world:
 		
